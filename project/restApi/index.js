@@ -1,3 +1,4 @@
+const { log } = require("console");
 const express  = require("express")
 const app = express()
 const port  = 8080
@@ -15,12 +16,15 @@ app.listen(port,()=>{
 })
 let posts = [
     {
+        id :"1",
         username:"rohanhakke",content:"hello everyone"
     },
     {
+        id :"2",
         username:"aniketmore",content:"i am student"
     },
     {
+        id :"3",
         username:"gauravsalgude",content:"i am worker"
     }
 ]
@@ -37,4 +41,12 @@ app.get("/posts/new",(req,res)=>{
     posts.push({username,content})
     // res.send("Post succesfuly! ")
     res.redirect("/posts")
+ })
+ app.get("/posts/new/:id",(req,res)=>{
+    // console.log(req.params);
+    let {id} = req.params
+    post = posts.find((p)=> id ===p.username)
+    // console.log(post);
+    
+    res.render("show.ejs",{post})
  })
