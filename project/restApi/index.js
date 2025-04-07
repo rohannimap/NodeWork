@@ -13,17 +13,28 @@ app.listen(port,()=>{
     console.log(`app listen on ${port}`);
     
 })
+let posts = [
+    {
+        username:"rohanhakke",content:"hello everyone"
+    },
+    {
+        username:"aniketmore",content:"i am student"
+    },
+    {
+        username:"gauravsalgude",content:"i am worker"
+    }
+]
+
 app.get("/posts",(req,res)=>{
     res.render("index.ejs",{posts})
  })
-let posts = [
-    {
-username:"rohanhakke",content:"hello everyone"
-},
-    {
-username:"aniketmore",content:"i am student"
-},
-    {
-username:"gauravsalgude",content:"i am worker"
-}
-]
+app.get("/posts/new",(req,res)=>{
+    res.render("newPost.ejs")
+ })
+ app.post("/posts",(req,res)=>{
+    // console.log(req.body);
+    let {username,content} = req.body
+    posts.push({username,content})
+    // res.send("Post succesfuly! ")
+    res.redirect("/posts")
+ })
